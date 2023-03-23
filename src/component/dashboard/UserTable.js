@@ -11,14 +11,9 @@ const deleteUser = "/images//dashboard/dropdown/deleteUser.svg";
 const addUser = "/images//dashboard/dropdown/addUser.svg";
 import { FIlterDropdwon } from "./FIlterDropdwon";
 import ApiServices from "@/services/ApiServices";
-const fetchData = () => {
-  return axios.get(
-    "https://6270020422c706a0ae70b72c.mockapi.io/lendsqr/api/v1/users "
-  );
-};
+
 
 export default function UserTable() {
-  // const { isLoading, isError, data } = useQuery("users", fetchData);
   const fractionalCount = 10;
   const [selectValue, setSelectValue] = useState(fractionalCount);
   const [open, setOpen] = useState({});
@@ -49,19 +44,12 @@ export default function UserTable() {
       setOpen(item);
     }
   };
-  if (isLoading) {
-    return (
-      <div className="isLoading">
-        loading users Information, Please wait a bit...
-      </div>
-    );
-  }
-
-  // if (isError) {
-  //   return <div className="isError">Something went wrong...</div>;
-  // }
 
   const totalDataCount = data?.data?.length;
+  const paginateTableData = (f) => {
+    setCurrentSlice(f - 1);
+  };
+  console.log("The button was clicked.", currentSlice);
 
   const handleChange = (event) => {
     console.log(event.target.value);
@@ -71,10 +59,6 @@ export default function UserTable() {
   const handleClick = (e) => {
     e.preventDefault();
   };
-  const paginateTableData = (f) => {
-    setCurrentSlice(f - 1);
-  };
-  console.log("The button was clicked.", currentSlice);
 
   return (
     <div className="user-table">

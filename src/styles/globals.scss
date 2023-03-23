@@ -232,7 +232,6 @@ header {
     border-width: 1px 0 1px 1px;
     border-radius: 8px 2px 0 8px;
     background: #ffffff;
-    opacity: 0.2;
     border: 1px solid #213f7d;
     // border-radius: 8px;
     flex: 1;
@@ -243,6 +242,8 @@ header {
     // width: 100%;
     width: 400px;
     padding: 5px;
+    position: relative;
+    z-index: 19999;
   }
 
   form#search button {

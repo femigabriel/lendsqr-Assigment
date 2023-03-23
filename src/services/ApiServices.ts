@@ -10,7 +10,7 @@ export default class ApiServices {
         });
     }
 
-    static fetchUserProfile() {
+    static fetchUserDataId() {
         return client.get("users/:id ").then((response) => {
             return response;
         });
