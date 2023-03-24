@@ -1,5 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
-import axios from "axios";
+import React, { useState} from "react";
 import { useQuery } from "react-query";
 import Link from "next/link";
 const rightArrow = "/images//dashboard/table/rightArrow.svg";
@@ -34,7 +33,7 @@ export default function UserTable() {
   if (isError) {
     return <div className="isError">Something went wrong...</div>;
   }
-  console.log({ data });
+  // console.log({ data });
 
   const handleOpen = (item) => {
     if (open?.id) {
@@ -50,7 +49,7 @@ export default function UserTable() {
     setCurrentPage(numb);
     setCurrentSlice((numb - 1) * selectValue);
   };
-  // console.log("The button was clicked.", currentSlice);
+ 
 
   const handleChange = (event) => {
     console.log(event.target.value);
@@ -127,7 +126,7 @@ export default function UserTable() {
                     {item?.createdAt.substring(11, 16)} AM
                   </td>
                   <td data-th="Status" className="user-status">
-                    <button className="btn-status">Inactive</button>
+                    <button className="btn-status">Active</button>
                   </td>
                   <td className="user-more" data-th="">
                     <button
@@ -140,7 +139,6 @@ export default function UserTable() {
                       <ul className="dropdown-menu">
                         <li className="menu-item">
                           <Link className="menuItem-link"
-                          //  href="/userDetails"
                           href={{
                             pathname: '/userDetails',query: {
                               search: JSON.stringify(item)
@@ -159,7 +157,7 @@ export default function UserTable() {
                         </li>
 
                         <li className="menu-item">
-                          <Link className="menuItem-link" href="/">
+                          <Link className="menuItem-link" href="/userDetails">
                             <div className="dropdown-items">
                               <img
                                 src={deleteUser}
@@ -172,7 +170,7 @@ export default function UserTable() {
                         </li>
 
                         <li className="menu-item">
-                          <Link className="menuItem-link" href="/">
+                          <Link className="menuItem-link" href="/userDetails">
                             <div className="dropdown-items">
                               <img
                                 src={addUser}
@@ -225,7 +223,6 @@ export default function UserTable() {
               <button
                 key={key.index}
                 onClick={() => paginateTableData(item)}
-                // className="page_numbers "
                 className={
                   selectValue == item ? " active_number " : "page_numbers "
                 }

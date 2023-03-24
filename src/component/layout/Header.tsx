@@ -1,8 +1,10 @@
 import React from 'react'
 const profilePix = '../images/dashboard/profilePix.png'
+const searchIcon = '/images//dashboard/searchIcon.svg'
 const logo = '/images//dashboard/logo.svg'
 const downArrow = '/images//dashboard/sidebar/downArrow.svg'
 import Link from 'next/link'
+import Search from './Search'
 
 export default function Header() {
   return (
@@ -11,20 +13,7 @@ export default function Header() {
         <Link href="/">
           <img src={logo} className="header_logo" />
         </Link>
-        <form 
-        // autocomplete="on"
-         id="search" method="POST">
-          <input
-            id="search-input"
-            // minlength="3"
-            name="query"
-            placeholder="Search for anything"
-            role="search"
-            type="search"
-          />
-          <button aria-label="submit" type="submit">
-          </button>
-        </form>
+        <Search />
         <div className="profile-detatils">
           <span className="profile-docs">
             <a href="" className="">
@@ -43,3 +32,5 @@ export default function Header() {
     </div>
   )
 }
+
+

@@ -121,7 +121,7 @@ export default function GeneralDashbard() {
                 </div>
                 <div>
                   <h4>Email Address</h4>
-                  <p>{user.guarantor.address}</p>
+                  <p> {user.email}</p>
                 </div>
                 <div>
                   <h4>Relationship</h4>
@@ -137,7 +137,7 @@ export default function GeneralDashbard() {
                 </div>
                 <div>
                   <h4>Email Address</h4>
-                  <p>{user.guarantor.address}</p>
+                  <p> {user.email}</p>
                 </div>
                 <div>
                   <h4>Relationship</h4>

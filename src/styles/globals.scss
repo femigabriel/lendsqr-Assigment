@@ -220,51 +220,46 @@ header {
   }
   /* search input */
 
-  form#search {
-    // align-items: center;
+  form .search_input {
     display: flex;
     @media screen and (max-width: 480px) {
       display: none;
     }
   }
 
-  form#search input {
+  .search_input .form_input {
     border-width: 1px 0 1px 1px;
     border-radius: 8px 2px 0 8px;
     background: #ffffff;
-    border: 1px solid #213f7d;
-    // border-radius: 8px;
+    border: 1px solid rgba(33, 63, 125, 0.2);
     flex: 1;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 200;
     height: 40px;
     margin: 0;
-    // width: 100%;
     width: 400px;
-    padding: 5px;
+    padding: 5px 10px;
     position: relative;
     z-index: 19999;
+    color: rgba(84, 95, 125, 0.7);
+  }
+  .Input {
+    display: flex;
   }
 
-  form#search button {
+  button {
     border: none;
     cursor: pointer;
     height: 40px;
   }
 
-  form#search svg {
+  .search-btn {
     background: #39cdcc;
     width: 56px;
     border-radius: 0 2px 2px 0;
     fill: white;
-    height: 40px;
+    height: 41px;
     padding: 5px 15px;
-    // width: 24px;
-  }
-
-  form#search svg:hover {
-    background-color: #1d6823;
-    fill: white;
   }
 
   .profile-detatils {
@@ -598,7 +593,8 @@ header {
     }
     .user-status {
       button {
-        background-color: rgba(84, 95, 125, 0.06);
+        background-color: rgba(57, 205, 98, 0.06);
+        cursor: pointer;
         border-radius: 100px;
         height: 30px;
       }
@@ -610,7 +606,7 @@ header {
         text-align: center;
         width: 80px;
         height: 30px;
-        color: #545f7d;
+        color: #39cd62;
       }
     }
   }
@@ -655,6 +651,7 @@ header {
     padding-top: 10px;
     padding-bottom: 10px;
     z-index: 1;
+
     .menu-item {
       list-style: none;
       padding: 5px 10px;
@@ -762,8 +759,7 @@ header {
       color: rgba(84, 95, 125, 0.6);
     }
     .active_number {
-      // color: #545f7d;
-      color: #e4033b;
+      color: #545f7d;
     }
 
     .next-page h3 {
@@ -798,6 +794,14 @@ header {
   left: 304px;
   top: 457px;
   padding: 30px 20px 20px 20px;
+  //   @media screen and (min-width: 980px) {
+  //     left: 179px;
+  //     top: 663px;
+  // }
+  // @media screen and (min-width: 820px) {
+  //   left: 179px;
+  //   top: 663px;
+  // }
 }
 .filter_select {
   width: 100%;
@@ -857,10 +861,7 @@ header {
   margin-left: 20px;
   color: #ffffff;
 }
-// .filter_btn:hover {
-//   background: #ffffff;
-//   color: #545f7d;
-// }
+
 /* user-details  */
 
 .user-details {
@@ -1001,7 +1002,6 @@ header {
   .usersmenu-lists {
     display: flex;
     justify-content: space-between;
-
   }
   .users-menu {
     padding-left: 40px;
