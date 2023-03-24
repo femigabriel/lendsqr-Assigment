@@ -12,12 +12,12 @@ const addUser = "/images//dashboard/dropdown/addUser.svg";
 import { FIlterDropdwon } from "./FIlterDropdwon";
 import ApiServices from "@/services/ApiServices";
 
-
 export default function UserTable() {
   const fractionalCount = 10;
   const [selectValue, setSelectValue] = useState(fractionalCount);
   const [open, setOpen] = useState({});
   const [currentSlice, setCurrentSlice] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const { isLoading, isError, data } = useQuery(
     "fetchUsers",
@@ -26,7 +26,7 @@ export default function UserTable() {
   if (isLoading) {
     return (
       <div className="isLoading">
-        loading users Information, Please wait a bit...
+        loading users' data, Please wait a bit...
       </div>
     );
   }
@@ -46,10 +46,11 @@ export default function UserTable() {
   };
 
   const totalDataCount = data?.data?.length;
-  const paginateTableData = (f) => {
-    setCurrentSlice(f - 1);
+  const paginateTableData = (numb) => {
+    setCurrentPage(numb);
+    setCurrentSlice((numb - 1) * selectValue);
   };
-  console.log("The button was clicked.", currentSlice);
+  // console.log("The button was clicked.", currentSlice);
 
   const handleChange = (event) => {
     console.log(event.target.value);
@@ -104,82 +105,91 @@ export default function UserTable() {
           </tr>
         </thead>
         <tbody>
-          {data?.data?.slice(currentSlice, selectValue).map((item, key) => {
-            return (
-              <tr key={key} onChange={handleChange}>
-                <td className="userTable-item" data-th="organization">
-                  {item?.orgName.substring(0, 10)}
-                </td>
-                <td className="userTable-item" data-th="Username">
-                  {item?.userName}
-                </td>
-                <td className="userTable-item" data-th="Email">
-                  {item?.email}
-                </td>
-                <td className="uuserTable-item" data-th="Phone number">
-                  {item?.profile?.phoneNumber.substring(0, 13)}
-                </td>
-                <td className="userTable-item" data-th="Date joined">
-                  {item?.createdAt.substring(0, 10)}{" "}
-                  {item?.createdAt.substring(11, 16)} AM
-                </td>
-                <td data-th="Status" className="user-status">
-                  <button className="btn-status">Inactive</button>
-                </td>
-                <td className="user-more" data-th="">
-                  <button
-                    onClick={() => handleOpen(item)}
-                    className="tableIcon-btn"
-                  >
-                    <img src={moreIcon} className="table-icon" alt="" />
-                  </button>
-                  {open.id == item.id ? (
-                    <ul className="dropdown-menu">
-                      <li className="menu-item">
-                        <Link className="menuItem-link" href="/userDetails">
-                          <div className="dropdown-items">
-                            <img
-                              src={viewIcon}
-                              className="dropdown-icon"
-                              alt="dropdown-icon"
-                            />
-                            <span>View Details</span>
-                          </div>
-                        </Link>
-                      </li>
+          {data?.data
+            ?.slice(currentSlice, selectValue * currentPage)
+            .map((item, key) => {
+              return (
+                <tr key={key.id} onChange={handleChange}>
+                  <td className="userTable-item" data-th="organization">
+                    {item?.orgName.substring(0, 10)}
+                  </td>
+                  <td className="userTable-item" data-th="Username">
+                    {item?.userName}
+                  </td>
+                  <td className="userTable-item" data-th="Email">
+                    {item?.email}
+                  </td>
+                  <td className="uuserTable-item" data-th="Phone number">
+                    {item?.profile?.phoneNumber.substring(0, 13)}
+                  </td>
+                  <td className="userTable-item" data-th="Date joined">
+                    {item?.createdAt.substring(0, 10)}{" "}
+                    {item?.createdAt.substring(11, 16)} AM
+                  </td>
+                  <td data-th="Status" className="user-status">
+                    <button className="btn-status">Inactive</button>
+                  </td>
+                  <td className="user-more" data-th="">
+                    <button
+                      onClick={() => handleOpen(item)}
+                      className="tableIcon-btn"
+                    >
+                      <img src={moreIcon} className="table-icon" alt="" />
+                    </button>
+                    {open.id == item.id ? (
+                      <ul className="dropdown-menu">
+                        <li className="menu-item">
+                          <Link className="menuItem-link"
+                          //  href="/userDetails"
+                          href={{
+                            pathname: '/userDetails',query: {
+                              search: JSON.stringify(item)
+                            }
+                          }}
+                           >
+                            <div className="dropdown-items">
+                              <img
+                                src={viewIcon}
+                                className="dropdown-icon"
+                                alt="dropdown-icon"
+                              />
+                              <span>View Details</span>
+                            </div>
+                          </Link>
+                        </li>
 
-                      <li className="menu-item">
-                        <Link className="menuItem-link" href="/">
-                          <div className="dropdown-items">
-                            <img
-                              src={deleteUser}
-                              className="dropdown-icon"
-                              alt="dropdown-icon"
-                            />
-                            <span>Blacklist User</span>
-                          </div>
-                        </Link>
-                      </li>
+                        <li className="menu-item">
+                          <Link className="menuItem-link" href="/">
+                            <div className="dropdown-items">
+                              <img
+                                src={deleteUser}
+                                className="dropdown-icon"
+                                alt="dropdown-icon"
+                              />
+                              <span>Blacklist User</span>
+                            </div>
+                          </Link>
+                        </li>
 
-                      <li className="menu-item">
-                        <Link className="menuItem-link" href="/">
-                          <div className="dropdown-items">
-                            <img
-                              src={addUser}
-                              className="dropdown-icon"
-                              alt="dropdown-icon"
-                            />
-                            <span>Activate User</span>
-                          </div>
-                        </Link>
-                      </li>
-                    </ul>
-                  ) : null}
-                  {open ? "" : ""}
-                </td>
-              </tr>
-            );
-          })}
+                        <li className="menu-item">
+                          <Link className="menuItem-link" href="/">
+                            <div className="dropdown-items">
+                              <img
+                                src={addUser}
+                                className="dropdown-icon"
+                                alt="dropdown-icon"
+                              />
+                              <span>Activate User</span>
+                            </div>
+                          </Link>
+                        </li>
+                      </ul>
+                    ) : null}
+                    {open ? "" : ""}
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
       <div className="pagination">
@@ -190,11 +200,15 @@ export default function UserTable() {
               {Array.from(
                 Array(totalDataCount / fractionalCount),
                 (_, index) => index + 1
-              ).map((item) => (
-                <option value={item * fractionalCount}>
-                  {item * fractionalCount}
-                </option>
-              ))}
+              )
+                .filter(
+                  (item) => totalDataCount % (item * fractionalCount) == 0
+                )
+                .map((item, key) => (
+                  <option key={key.index} value={item * fractionalCount}>
+                    {item * fractionalCount}
+                  </option>
+                ))}
             </select>
           </div>
           <span>out of {totalDataCount}</span>
@@ -205,12 +219,16 @@ export default function UserTable() {
           </button>
           <div className="number">
             {Array.from(
-              Array(totalDataCount / fractionalCount),
+              Array(totalDataCount / selectValue),
               (_, index) => index + 1
-            ).map((item) => (
+            ).map((item, key) => (
               <button
+                key={key.index}
                 onClick={() => paginateTableData(item)}
-                className="page_numbers"
+                // className="page_numbers "
+                className={
+                  selectValue == item ? " active_number " : "page_numbers "
+                }
               >
                 {item}
               </button>

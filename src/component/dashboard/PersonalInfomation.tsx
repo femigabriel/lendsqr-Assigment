@@ -1,37 +1,14 @@
-import React from "react";
-import { useQuery } from "react-query";
-import ApiServices from "@/services/ApiServices";
+import React from 'react'
+import { useSearchParams } from 'next/navigation'
 
-export default function GeneralDashbard({
-  // index,
-  // email,
-  // firstName,
-  // lastName,
-  // gender,
-  // bvn,
-}) {
-  const { isLoading, isError, data } = useQuery(
-    "fetchUsers",
-    ApiServices.fetchUserData
-  );
-  if (isLoading) {
-    return (
-      <div className="isLoading">
-        loading users Information, Please wait a bit...
-      </div>
-    );
-  }
-
-  if (isError) {
-    return <div className="isError">Something went wrong...</div>;
-  }
-  console.log({ data });
+export default function GeneralDashbard() {
+  const searchParams = useSearchParams()
+  const user = JSON.parse(searchParams.get('search') || '')
 
   return (
     <div className="userDetailsDashboard">
       <div className="userDetailsDashboard-box">
-        {/* {data?.data?.map((info, key) => ( */}
-        <div  className="userDetailsDashboard-content">
+        <div className="userDetailsDashboard-content">
           <div className="userInfo-content">
             <div className="title">
               <h3>Personal Information</h3>
@@ -39,22 +16,25 @@ export default function GeneralDashbard({
             <div className="personal-info">
               <div>
                 <h4>full Name</h4>
-                <p>firstName lastName</p>
+                <p>
+                  {user.profile.firstName} {''}
+                  {user.profile.lastName}
+                </p>
               </div>
               <div>
                 <h4>phone number</h4>
-                <p>phoneNumber</p>
+                <p>{user.guarantor.phoneNumber.substring(0, 15)}</p>
               </div>
               <div>
                 <h4>Email Address</h4>
-                <p>email</p>
+                <p> {user.email}</p>
               </div>
               <div>
                 <h4>Bvn</h4>
-                <p>bvn</p>
+                <p> {user.profile.bvn}</p>
               </div>
               <div>
-                <p>gender</p>
+                <p> {user.profile.gender}</p>
               </div>
               <div>
                 <h4>Marital status</h4>
@@ -77,31 +57,34 @@ export default function GeneralDashbard({
             <div className="employment-info">
               <div>
                 <h4>level of education</h4>
-                <p>B.Sc</p>
+                <p>{user.education.level}</p>
               </div>
               <div>
                 <h4>employment status</h4>
-                <p>Employed</p>
+                <p>{user.education.employmentStatus}</p>
               </div>
               <div>
                 <h4>sector of employment</h4>
-                <p>FinTech</p>
+                <p>{user.education.sector}</p>
               </div>
               <div>
                 <h4>Duration of employment</h4>
-                <p>2 years</p>
+                <p>{user.education.duration}</p>
               </div>
               <div>
                 <h4>Office email</h4>
-                <p>grace@lendsqr.com</p>
+                <p>{user.education.officeEmail}</p>
               </div>
               <div>
                 <h4>Monthly income</h4>
-                <p>₦200,000.00- ₦400,000.00</p>
+                <p>
+                  {user.education.monthlyIncome[0]} -{' '}
+                  {user.education.monthlyIncome[1]}
+                </p>
               </div>
               <div>
                 <h4>loan repayment</h4>
-                <p>40,000</p>
+                <p>{user.education.loanRepayment}</p>
               </div>
             </div>
             <div className="userInfo-content">
@@ -111,15 +94,15 @@ export default function GeneralDashbard({
               <div className="status-info">
                 <div>
                   <h4>Twitter</h4>
-                  <p>@grace_effiom</p>
+                  <p>{user.socials.twitter}</p>
                 </div>
                 <div>
                   <h4>facebook</h4>
-                  <p>Grace Effiom</p>
+                  <p>{user.socials.facebook}</p>
                 </div>
                 <div>
                   <h4>instagram</h4>
-                  <p>@grace_effiom</p>
+                  <p>{user.socials.instagram}</p>
                 </div>
               </div>
             </div>
@@ -129,38 +112,42 @@ export default function GeneralDashbard({
               </div>
               <div className="status-info">
                 <div>
-                  <h4>Twitter</h4>
-                  <p>@grace_effiom</p>
+                  <h4>full Name</h4>
+                  <p>{user.guarantor.firstName}</p>
                 </div>
                 <div>
-                  <h4>facebook</h4>
-                  <p>Grace Effiom</p>
+                  <h4>Phone Number</h4>
+                  <p>{user.guarantor.phoneNumber.substring(0, 13)}</p>
                 </div>
                 <div>
-                  <h4>instagram</h4>
-                  <p>@grace_effiom</p>
+                  <h4>Email Address</h4>
+                  <p>{user.guarantor.address}</p>
                 </div>
                 <div>
-                  <h4>instagram</h4>
-                  <p>@grace_effiom</p>
+                  <h4>Relationship</h4>
+                  <p>Father</p>
                 </div>
                 <div>
-                  <h4>instagram</h4>
-                  <p>@grace_effiom</p>
+                  <h4>full Name</h4>
+                  <p>{user.guarantor.firstName}</p>
                 </div>
                 <div>
-                  <h4>instagram</h4>
-                  <p>@grace_effiom</p>
+                  <h4>Phone Number</h4>
+                  <p>{user.guarantor.phoneNumber.substring(0, 14)}</p>
+                </div>
+                <div>
+                  <h4>Email Address</h4>
+                  <p>{user.guarantor.address}</p>
+                </div>
+                <div>
+                  <h4>Relationship</h4>
+                  <p>Father</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        {/* ))} */}
       </div>
     </div>
-  
-  );
+  )
 }
-
-

@@ -10,9 +10,9 @@ export const FIlterDropdwon = () => {
 
   return (
     <div>
-      <button className="table-icon_btn" onClick={handleDopdownOpen}>
+      <div className="table-icon_btn" onClick={handleDopdownOpen}>
         <img src={filterResults} className="table-icon" alt="filter" />
-      </button>
+      </div>
       {dropdownOpen ? (
         ''
       ) : (
@@ -61,7 +61,6 @@ export const FIlterDropdwon = () => {
               <button className="filter_btn">Filter</button>
             </div>
           </form>
-
         </div>
       )}
     </div>

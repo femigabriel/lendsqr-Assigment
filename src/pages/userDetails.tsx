@@ -4,8 +4,8 @@ import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 import LeftSideBar from '@/component/layout/LeftSideBar'
 import Header from '@/component/layout/Header'
-import UserDetails from '../component/dashboard/UserDetails'
-import GeneralDetails from '../component/dashboard/GeneralDetails'
+import UserDetails from '../component/dashboard/UserDetailsPage'
+import GeneralDetails from '../component/dashboard/PersonalInfomation'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function userDetails() {
@@ -27,7 +27,6 @@ export default function userDetails() {
           <LeftSideBar />
           <div className="userDashboard-page">
             <UserDetails />
-            {/* <UserDetailsDashboard /> */}
             <GeneralDetails />
           </div>
         </div>
